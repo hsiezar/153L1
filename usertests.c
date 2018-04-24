@@ -66,7 +66,7 @@ exitiputtest(void)
     }
     exit(0);
   }
-  wait();
+  wait(0);
   printf(stdout, "exitiput test ok\n");
 }
 
@@ -109,7 +109,7 @@ openiputtest(void)
     printf(stdout, "unlink failed\n");
     exit(1);
   }
-  wait();
+  wait(0);
   printf(stdout, "openiput test ok\n");
 }
 
@@ -346,7 +346,7 @@ pipe1(void)
       exit(1);
     }
     close(fds[0]);
-    wait();
+    wait(0);
   } else {
     printf(1, "fork() failed\n");
     exit(1);
@@ -394,9 +394,9 @@ preempt(void)
   kill(pid2);
   kill(pid3);
   printf(1, "wait... ");
-  wait();
-  wait();
-  wait();
+  wait(0);
+  wait(0);
+  wait(0);
   printf(1, "preempt ok\n");
 }
 
@@ -413,7 +413,7 @@ exitwait(void)
       return;
     }
     if(pid){
-      if(wait() != pid){
+      if(wait(0) != pid){
         printf(1, "wait wrong pid\n");
         return;
       }
@@ -453,7 +453,7 @@ mem(void)
     printf(1, "mem ok\n");
     exit(0);
   } else {
-    wait();
+    wait(0);
   }
 }
 
@@ -794,7 +794,7 @@ concreate(void)
     if(pid == 0)
       exit(0);
     else
-      wait();
+      wait(0);
   }
 
   memset(fa, 0, sizeof(fa));
@@ -1720,7 +1720,7 @@ uio()
     printf (1, "fork failed\n");
     exit(1);
   }
-  wait();
+  wait(0);
   printf(1, "uio test done\n");
 }
 
@@ -1782,7 +1782,7 @@ main(int argc, char *argv[])
   mem();
   pipe1();
   preempt();
-  exitwait();
+  exitwait(0);
 
   rmdot();
   fourteen();
