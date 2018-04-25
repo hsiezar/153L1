@@ -18,6 +18,9 @@ sys_exit(void)
 {
   int status;
 
+  if(argint(0, &status) < 0)
+     return -1;
+
   exit(status);
   return 0;  // not reached
 }
@@ -26,6 +29,17 @@ int
 sys_wait(void)
 {
   return wait(0);
+}
+
+int
+sys_waitpid(void)
+{
+  int pid;
+
+  if(argint(0, &pid) < 0)
+     return -1;
+
+  return waitpid(pid);
 }
 
 int
