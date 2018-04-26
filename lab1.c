@@ -2,7 +2,7 @@
 #include "user.h"
 
 int exitWait(void);
-int waitPid(void);
+int waitpid(int, int*, int);
 
 int main(int argc, char *argv[]) {
     printf(1, "####################################################\n");
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     if (atoi(argv[1]) == 1)
         exitWait(); // Test exit and wait
     else if (atoi(argv[1]) == 2)
-        waitPid(); // Test waitpid
+        waitpid(); // Test waitpid
     // For corner cases
     else 
         printf(1, "\ntype \"lab1 1\" to test exit and wait, \"lab1 2\" to test waitpid \n");
@@ -50,7 +50,7 @@ int exitWait(void) {
     return 0;
 }
 
-int waitPid(void){	
+int waitpid(int pid, int* status, int options){	
     int ret_pid, exit_status;
     int i;
     int pid_a[5]={0, 0, 0, 0, 0};

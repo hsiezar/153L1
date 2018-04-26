@@ -230,7 +230,7 @@ exit(int status)
   struct proc *curproc = myproc();
   struct proc *p;
   int fd;
-  curproc->exitStatus = status //LAB1 CS153 ADDED
+  curproc->exitStatus = status;//LAB1 CS153 ADDED
 
   if(curproc == initproc)
     panic("init exiting");
@@ -317,7 +317,7 @@ wait(int *status)
 int
 waitpid(int pid, int *status, int options)
 {
-  struct proc *p;I
+  struct proc *p;
   struct proc *curproc = myproc();
   int procFound;
   

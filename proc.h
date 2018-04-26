@@ -48,7 +48,7 @@ struct proc {
   int killed;                  // If non-zero, have been killed
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
-  char name[16]
+  char name[16];
   int exitStatus;               // LAB 1 Process name (debugging)
 };
 

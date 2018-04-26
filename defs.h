@@ -118,7 +118,7 @@ void            setproc(struct proc*);
 void            sleep(void*, struct spinlock*);
 void            userinit(void);
 int             wait(int*); //LAB1 CS153
-int		waitpid(int, int*, int) //LAB1 CS153
+int		waitpid(int, int*, int); //LAB1 CS153
 void            wakeup(void*);
 void            yield(void);
 
