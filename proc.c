@@ -319,21 +319,22 @@ waitpid(int pid, int *status, int options)
 {
   struct proc *p;
   struct proc *curproc = myproc();
-  int procFound;
+  
+  int procFound; //Flag if proc is found
   
   acquire(&ptable.lock);
   for(;;){
     // Scan through table looking for exited children.
     procFound = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->pid != pid)
+      if(p->pid != pid) //check if pid == passed in pid
         continue;
       procFound = 1;
       if(p->state == ZOMBIE){
         // Found one.
-        if(status != 0) {
+        if(status != 0) { //LAB1 CS153
           *status = p->exitStatus;
-         }
+        }
         kfree(p->kstack);
         p->kstack = 0;
         freevm(p->pgdir);
