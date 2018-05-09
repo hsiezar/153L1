@@ -582,3 +582,43 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int
+getpid(void)
+{
+  struct proc *curproc = myproc();
+  
+  if(curproc) {
+    return curproc->pid;
+  }
+  else
+    return -1;
+}
+
+int
+getPriority(int pid)
+{
+  struct proc *p;
+
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+    if(p->pid == pid) {
+	return p->priority;
+    }
+  }
+  return -1;
+}
+
+int
+changePriority(int priority)
+{
+  struct proc *curproc = myproc();
+
+  if(curproc->priority < 0) {
+    curproc->priority = 0;
+  }
+
+  if(curproc->priority > 31) {
+    curproc->priority = 31;
+  }
+
+}
