@@ -614,6 +614,7 @@ int
 changePriority(int priority)
 {
   struct proc *curproc = myproc();
+  curproc->priority = priority;
 
   if(curproc->priority < 0) {
     curproc->priority = 0;
