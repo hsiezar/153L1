@@ -60,7 +60,7 @@ sys_setPriority(void)
 
   argint(0, &pid); 
   argint(1, &d);
-
+  return setPriority(pid); 
 }
 
 int
