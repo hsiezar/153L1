@@ -52,7 +52,7 @@ sys_waitpid(void)
   return waitpid(pid, status, options);
 }
 
-
+void
 sys_setPriority(void)
 {
   int pid;
@@ -71,6 +71,7 @@ sys_getPriority(void){
   return getPriority(pid);
 }
 
+int
 sys_kill(void)
 {
   int pid;
