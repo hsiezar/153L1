@@ -375,7 +375,6 @@ void
 scheduler(void)
 {
   struct proc *p;
-  struct proc *q;
   struct cpu *c = mycpu();
   c->proc = 0;
   struct proc *smallPrior;
@@ -394,7 +393,7 @@ scheduler(void)
         //q->priority++;
         if(min_priority > p->priority){
 	  smallPrior = p;
-          min_priory = p->priority;
+          min_priority = p->priority;
         }
         p->priority++;
       }
@@ -416,7 +415,6 @@ scheduler(void)
       }
     }
     release(&ptable.lock);
-  }
 }
 
 // Enter scheduler.  Must hold only ptable.lock
