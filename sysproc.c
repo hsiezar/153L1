@@ -53,6 +53,12 @@ sys_waitpid(void)
 }
 
 int
+sys_setPriority(void)
+{
+  int 
+}
+
+int
 sys_kill(void)
 {
   int pid;
