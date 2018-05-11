@@ -377,7 +377,8 @@ scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
   c->proc = 0;
-  
+  struct proc *smallPrior;
+
   for(;;){
     // Enable interrupts on this processor.
     sti();
@@ -387,7 +388,15 @@ scheduler(void)
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+	smallPrior = p;
 
+    for(q = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(q->state != RUNNABLE)
+	continue;
+      if(smallPrior->priority > q->priority){
+	smallPrior = q;
+      }
+    }
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
@@ -611,7 +620,7 @@ getPriority(int pid)
 }
 
 int
-changePriority(int priority)
+setPriority(int priority)
 {
   struct proc *curproc = myproc();
   curproc->priority = priority;
@@ -623,5 +632,5 @@ changePriority(int priority)
   if(curproc->priority > 31) {
     curproc->priority = 31;
   }
-
+  return 0;
 }
