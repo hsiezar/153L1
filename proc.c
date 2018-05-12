@@ -375,6 +375,8 @@ void
 scheduler(void)
 {
   struct proc *p;
+  struct proc *newProc;
+  struct proc *q;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -387,6 +389,19 @@ scheduler(void)
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+      
+      newProc = p;
+
+            for(q = ptable.proc; q < &ptable.proc[NPROC]; q++){
+                if(q->state != RUNNABLE) {
+                    continue;
+                }
+                if (newProc->priority >= q->priority) {
+                    newProc = q;
+                }
+            }
+
+            p = newProc;
 
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
@@ -403,7 +418,7 @@ scheduler(void)
       c->proc = 0;
     }
     release(&ptable.lock);
-
+}
 }
 
 // Enter scheduler.  Must hold only ptable.lock
@@ -438,6 +453,7 @@ yield(void)
 {
   acquire(&ptable.lock);  //DOC: yieldlock
   myproc()->state = RUNNABLE;
+  setPriority(myproc()->priority + 1); // 153 Lab 2 : Yeild is called in the context switch process meaning that a process was executed and we need to decrease priority
   sched();
   release(&ptable.lock);
 }
